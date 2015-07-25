@@ -27,7 +27,8 @@ gem 'figaro'
 gem 'devise'
 gem 'lastfm'
 gem 'bootstrap-sass', '~> 3.3.5'
-
+gem 'will_paginate', '~> 3.0.6'
+gem 'bootstrap-will_paginate'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

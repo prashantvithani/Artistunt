@@ -1,3 +1,4 @@
+require 'will_paginate/array'
 class SearchController < ApplicationController
   before_action :lastfm, except: [ :home ]
 
@@ -75,7 +76,8 @@ class SearchController < ApplicationController
   end
 
   def get_similar
-
+    @artist_name = params[:artist_name]
+    @resp = lastfm.artist.get_similar(artist: params[:artist_name]).paginate(page: params[:page], per_page: 10)
   end
 
   protected
