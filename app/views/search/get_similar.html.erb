@@ -4,7 +4,7 @@
     <h1 class="page-heading"><%= @artist_name %></h1>
     <h4 class="small-title">Similar Artists</h4>
     <ul class="media-list media-sm">
-      <% @resp.drop(1).each do |artist| %>
+      <% @resp.each do |artist| %>
         <div class="the-box no-border">
           <li class="media">
             <a class="pull-left" href="element-list-media.html#fakelink">
@@ -24,3 +24,5 @@
     <%= will_paginate @resp %>
   </div><!-- /.col-sm-6 -->
 </div>
+
+<%= @resp  %>

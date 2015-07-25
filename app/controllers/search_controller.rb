@@ -77,7 +77,8 @@ class SearchController < ApplicationController
 
   def get_similar
     @artist_name = params[:artist_name]
-    @resp = lastfm.artist.get_similar(artist: params[:artist_name]).paginate(page: params[:page], per_page: 10)
+    temp_resp = lastfm.artist.get_similar(artist: params[:artist_name]).drop(1)
+    @resp = temp_resp.paginate(page: params[:page], per_page: 10)
   end
 
   protected
