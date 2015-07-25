@@ -1,0 +1,12 @@
+<% @artist_matched.each do |artist| %>
+  <%= link_to artist['name'], artist['url'] %><br>
+<% end %>
+<br>
+<div class="">
+  <% if $previous_artists > 0 %>
+    (<%= $previous_artists %>)<%= link_to "Get Previous Page", get_previous_page_path(previous: $previous_artists), remote: true %> |
+  <% end %>
+  <% if $more_artists > 0 %>
+    <%= link_to "Get Next Page", get_next_page_path(remaining: $more_artists), remote: true %>(<%= $more_artists %>)
+  <% end %>
+</div>
