@@ -2,10 +2,10 @@ Rails.application.routes.draw do
   root 'search#home'
 
   post 'search/', to: 'search#search_artist', as: :search_artist
-  get 'search/list_artists/:artist_name', to: 'search#list_artists', as: :list_artists
-  get 'search/list_artists/:artist_name/get_next_page', to: 'search#get_next_page', as: :get_next_page
-  get 'search/list_artists/:artist_name/get_previous_page', to: 'search#get_previous_page', as: :get_previous_page
-  get 'artist/:artist_name', to: 'search#show_artist', as: :show_artist
+  get 'search/list_artists/:artist_query', to: 'search#list_artists', as: :list_artists, constraints: { artist_query: /[^\/]+/ }
+  get 'search/list_artists/:artist_query/get_next_page', to: 'search#get_next_page', as: :get_next_page, constraints: { artist_query: /[^\/]+/ }
+  get 'search/list_artists/:artist_query/get_previous_page', to: 'search#get_previous_page', as: :get_previous_page, constraints: { artist_query: /[^\/]+/ }
+  get 'artist/:artist_name', to: 'search#show_artist', as: :show_artist, constraints: { artist_name: /.*/ }
 
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
