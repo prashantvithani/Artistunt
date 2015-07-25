@@ -51,6 +51,15 @@ class SearchController < ApplicationController
   end
 
   def show_artist
+    artist_name = params[:artist_name]
+    artist = lastfm.artist
+    @resp = artist.get_info(artist: artist_name)
+    tracks = artist.get_top_tracks(artist: artist_name, limit: 10)
+    albums = artist.get_top_albums(artist: artist_name, limit: 10)
+    @resp.merge!({"tracks" => tracks, "albums" => albums})
+  end
+
+  def get_similar
 
   end
 

@@ -1,5 +1,5 @@
 <% @artist_matched.each do |artist| %>
-  <%= link_to artist['name'], artist['url'] %><br>
+  <%= link_to artist['name'], show_artist_path(artist['name']) %><br>
 <% end %>
 <br>
 <div class="">

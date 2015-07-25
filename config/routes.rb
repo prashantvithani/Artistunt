@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'search/list_artists/:artist_name', to: 'search#list_artists', as: :list_artists
   get 'search/list_artists/:artist_name/get_next_page', to: 'search#get_next_page', as: :get_next_page
   get 'search/list_artists/:artist_name/get_previous_page', to: 'search#get_previous_page', as: :get_previous_page
+  get 'artist/:artist_name', to: 'search#show_artist', as: :show_artist
 
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
