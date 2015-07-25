@@ -85,7 +85,6 @@ class SearchController < ApplicationController
   end
 
   def fetch_artists
-    logger.info { "--- #{$page_count} ---" }
     resp = $artist.search(artist: params[:artist_query], limit: 10, page: $page_count)
     if resp['status'] == 'ok'
       @artist_matched = resp['results']['artistmatches']['artist']
