@@ -11,7 +11,8 @@ class SearchController < ApplicationController
   end
 
   def list_artists
-    resp = lastfm.artist.search(artist: params[:artist_name], limit: 10)
+    $artist = lastfm.artist
+    resp = $artist.search(artist: params[:artist_query], limit: 10)
     if resp['status'] == 'ok'
       $more_artists = resp['results']['totalResults'].to_i - 10
       @artist_matched = resp['results']['artistmatches']['artist']
@@ -54,8 +55,22 @@ class SearchController < ApplicationController
     artist_name = params[:artist_name]
     artist = lastfm.artist
     @resp = artist.get_info(artist: artist_name)
-    tracks = artist.get_top_tracks(artist: artist_name, limit: 10)
-    albums = artist.get_top_albums(artist: artist_name, limit: 10)
+
+    tracks_info = artist.get_top_tracks(artist: artist_name, limit: 10)
+    if tracks_info.is_a? Hash
+      tracks = []
+      tracks << tracks_info
+    else
+      tracks = tracks_info
+    end
+
+    albums_info = artist.get_top_albums(artist: artist_name, limit: 10)
+    if albums_info.is_a? Hash
+      albums = []
+      albums << albums_info
+    else
+      albums = albums_info
+    end
     @resp.merge!({"tracks" => tracks, "albums" => albums})
   end
 
@@ -70,7 +85,8 @@ class SearchController < ApplicationController
   end
 
   def fetch_artists
-    resp = lastfm.artist.search(artist: params[:artist_name], limit: 10, page: $page_count)
+    logger.info { "--- #{$page_count} ---" }
+    resp = $artist.search(artist: params[:artist_query], limit: 10, page: $page_count)
     if resp['status'] == 'ok'
       @artist_matched = resp['results']['artistmatches']['artist']
     end

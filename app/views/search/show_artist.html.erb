@@ -30,17 +30,21 @@
     <div class="the-box bg-default no-border">
     <h3 class="small-title"><strong>Artist Bio</strong></h3>
       <hr />
-      <p>
-        <strong><%= @resp['bio']['placeformed'] %> (<%= @resp['bio']['formationlist']['formation']['yearfrom'] %> - <% if @resp['bio']['formationlist']['formation']['yearto'].blank? %>
-          present
-        <% else %>
-          <%= @resp['bio']['formationlist']['formation']['yearto'] %>
-        <% end %>) </strong>
-      </p>
-      <p>
-        <%= @resp['bio']['summary'].html_safe %>
-      </p>
-      <hr />
+      <% unless @resp['bio']['formationlist'].blank? || @resp['bio']['placeformed'].blank? %>
+        <p>
+          <strong><%= @resp['bio']['placeformed'] %> (<%= @resp['bio']['formationlist']['formation']['yearfrom'] %> - <% if @resp['bio']['formationlist']['formation']['yearto'].blank? %>
+            present
+          <% else %>
+            <%= @resp['bio']['formationlist']['formation']['yearto'] %>
+          <% end %>) </strong>
+        </p>
+      <% end %>
+      <% unless @resp['bio']['summary'].blank? %>
+        <p>
+          <%= @resp['bio']['summary'].html_safe %>
+        </p>
+        <hr />
+      <% end %>
       <% unless @resp['bandmembers'].blank? %>
         <h4 class="small-title"><strong>Band Members</strong></h4>
         <div class="the-box full no-border">
@@ -63,51 +67,62 @@
         </div><!-- /.the-box -->
         <hr />
       <% end %>
-      <strong>Tags</strong><br><br>
-      <% @resp['tags']['tag'].each do |tag| %>
-        <%= link_to tag['name'], tag['url'], class: "btn btn-info" %>
+      <% unless @resp['tags'].blank? %>
+        <strong>Tags</strong><br><br>
+        <% @resp['tags']['tag'].each do |tag| %>
+          <%= link_to tag['name'], tag['url'], class: "btn btn-info" %>
+        <% end %>
       <% end %>
     </div><!-- /.the-box .bg-primary .no-border-->
   </div><!-- /.col-sm-6 -->
 </div>
 
 <div class="row">
-  <div class="col-lg-6">
-    <!-- Begin primary color table -->
-    <h4 class="small-title">Top Tracks</h4>
-    <div class="the-box full no-border">
-      <div class="table-responsive">
-        <table class="table table-th-block table-primary">
-          <thead>
-            <tr><th style="width: 30px;">No</th><th>Track</th><th>Play Count</th><th>Listeners</th></tr>
-          </thead>
-          <tbody>
-            <% @resp['tracks'].each do |track| %>
-              <tr><td><%= track['rank'] %></td><td><%= track['name'] %></td><td><%= number_with_delimiter(track['playcount'], delimiter: ',') %></td><td><%= number_with_delimiter(track['listeners'], delimiter: ',') %></td></tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div><!-- /.table-responsive -->
-    </div><!-- /.the-box -->
-    <!-- End primary color table -->
-  </div>
-  <div class="col-lg-6">
-    <!-- Begin primary color table -->
-    <h4 class="small-title">Top Albums</h4>
-    <div class="the-box full no-border">
-      <div class="table-responsive">
-        <table class="table table-th-block table-primary">
-          <thead>
-            <tr><th style="width: 30px;">No</th><th>Album</th><th>Play Count</th></tr>
-          </thead>
-          <tbody>
-            <% @resp['albums'].each do |album| %>
-              <tr><td><%= album['rank'] %></td><td><%= album['name'] %></td><td><%= number_with_delimiter(album['playcount'], delimiter: ',') %></td></tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div><!-- /.table-responsive -->
-    </div><!-- /.the-box -->
-    <!-- End primary color table -->
+  <% unless @resp['tracks'].blank? %>
+    <div class="col-lg-6">
+      <!-- Begin primary color table -->
+      <h4 class="small-title">Top Tracks</h4>
+      <div class="the-box full no-border">
+        <div class="table-responsive">
+          <table class="table table-th-block table-primary">
+            <thead>
+              <tr><th style="width: 30px;">No</th><th>Track</th><th>Play Count</th><th>Listeners</th></tr>
+            </thead>
+            <tbody>
+              <% @resp['tracks'].each do |track| %>
+                <tr>
+                  <td><%= track['rank'] %></td>
+                  <td><%= track['name'] %></td>
+                  <td><%= number_with_delimiter(track['playcount'], delimiter: ',') %></td>
+                  <td><%= number_with_delimiter(track['listeners'], delimiter: ',') %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div><!-- /.table-responsive -->
+      </div><!-- /.the-box -->
+      <!-- End primary color table -->
+    </div>
+  <% end %>
+  <% unless @resp['albums'].blank? %>
+    <div class="col-lg-6">
+      <!-- Begin primary color table -->
+      <h4 class="small-title">Top Albums</h4>
+      <div class="the-box full no-border">
+        <div class="table-responsive">
+          <table class="table table-th-block table-primary">
+            <thead>
+              <tr><th style="width: 30px;">No</th><th>Album</th><th>Play Count</th></tr>
+            </thead>
+            <tbody>
+              <% @resp['albums'].each do |album| %>
+                <tr><td><%= album['rank'] %></td><td><%= album['name'] %></td><td><%= number_with_delimiter(album['playcount'], delimiter: ',') %></td></tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div><!-- /.table-responsive -->
+      </div><!-- /.the-box -->
+      <!-- End primary color table -->
+    <% end %>
   </div>
 </div>
