@@ -25,11 +25,21 @@ footer {
   }
 }
 
-.login.toolkits .page-heading {
+.login.toolkits .page-heading,
+.search-artist .page-heading {
   color: white !important;
   font-size: 40px;
 }
 
 .alert {
   margin-top: 20px;
+}
+
+.logo-brand a {
+  color: white;
+}
+
+.logo-brand a:hover{
+  color: white;
+  text-decoration: none;
 }
