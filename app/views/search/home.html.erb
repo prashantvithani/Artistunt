@@ -4,14 +4,14 @@
 <div class="search-artist">
   <h1 class="page-heading" align="center">Artistunt</h1>
   <div class="text-center">
-    <h3>Search Any Music Artist! Happy Searching :)</h3>
+    <h3>Search Any Music Artist!</h3>
   </div>
 
   <div class="login-wrapper">
     <%= form_tag(search_artist_path) do %>
       <div class="form-group has-feedback lg right-feedback no-label">
         <!-- <%#= label_tag :search_artist %><br /> -->
-        <%= text_field_tag :search_artist, nil, class: "form-control no-border input-lg rounded solution", placeholder: "Search for a Music artist" %>
+        <%= text_field_tag :search_artist, nil, class: "form-control no-border input-lg rounded solution", placeholder: "Enter name of Music Artist" %>
         <span class="fa fa-envelope form-control-feedback iconposition"></span>
       </div>
 
