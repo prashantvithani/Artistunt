@@ -7,7 +7,7 @@
       <% @artist_matched.each do |artist| %>
         <div class="the-box no-border">
           <li class="media">
-            <a class="pull-left" href="element-list-media.html#fakelink">
+            <a class="pull-left" href="<%= show_artist_path(artist['name']) %>">
               <img class="media-object img-rounded" src="<%= artist['image'][1]['content'] %>" alt="Avatar">
             </a>
             <div class="media-body">

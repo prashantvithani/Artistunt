@@ -7,7 +7,7 @@
         <% artist = history.visited_artist %>
         <div class="the-box no-border">
           <li class="media">
-            <a class="pull-left" href="element-list-media.html#fakelink">
+            <a class="pull-left" href="<%= show_artist_path(artist.name) %>">
               <img class="media-object img-rounded" src="<%= artist.image_url %>" alt="Avatar">
             </a>
             <div class="media-body">
