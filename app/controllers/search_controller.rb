@@ -8,18 +8,30 @@ class SearchController < ApplicationController
 
   def search_artist
     @artist_name = params[:search_artist]
-    redirect_to list_artists_path(@artist_name)
+    if @artist_name.blank?
+      flash[:notice] = "Please enter a name of artist before hitting 'GO'"
+      redirect_to root_path
+    else
+      redirect_to list_artists_path(@artist_name)
+    end
   end
 
   def list_artists
     $artist = lastfm.artist
     @artist_name = params[:artist_query]
+    if @artist_name.blank?
+      flash[:notice] = "Please enter a name of artist before hitting 'GO'"
+    end
     resp = $artist.search(artist: params[:artist_query], limit: 10)
     if resp['status'] == 'ok'
       $more_artists = resp['results']['totalResults'].to_i - 10
       @artist_matched = resp['results']['artistmatches']['artist']
       $page_count = 1
       $previous_artists = 0
+      if @artist_matched.nil?
+        flash[:alert] = "No artist matched with given name. Please check the name again..."
+        redirect_to root_path
+      end
     else
 
     end

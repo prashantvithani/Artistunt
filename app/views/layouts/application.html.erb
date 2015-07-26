@@ -14,6 +14,22 @@
 		</div>
     <div class="page-content">
       <div class="container-fluid">
+        <% flash.each do |name, msg| %>
+	  		<%
+	      		alertClass = 'danger'
+	      		if name == 'notice'
+	      			alertClass = 'info'
+      			elsif name == 'success'
+	      			alertClass = 'success'
+	      		elsif name == 'warning'
+	      			alertClass = 'warning'
+	      		end
+      		%>
+        <div class="alert alert-<%=alertClass %> alert-bold-border">
+          	<a class="close" data-dismiss="alert">&times;</a>
+          	<%=msg %>
+        	</div>
+      	<% end %>
         <%= yield %>
       </div>
     </div>
