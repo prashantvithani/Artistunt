@@ -1,8 +1,7 @@
 <!-- BEGIN MEDIA OBJECT -->
 <div class="row">
   <div class="col-sm-6 col-sm-offset-3">
-    <h1 class="page-heading"><%= current_user.username %></h1>
-    <h4 class="small-title">History</h4>
+    <h1 class="page-heading">History</h1>
     <ul class="media-list media-sm">
       <% @history.each do |history| %>
         <% artist = history.visited_artist %>
