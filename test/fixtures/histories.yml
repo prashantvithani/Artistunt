@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: 
+  visited_artist: 
+  count: 1
+
+two:
+  user: 
+  visited_artist: 
+  count: 1

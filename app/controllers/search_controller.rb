@@ -1,6 +1,6 @@
 require 'will_paginate/array'
 class SearchController < ApplicationController
-  before_action :lastfm, except: [ :home ]
+  before_action :authenticate_user!
 
   def home
 
@@ -56,6 +56,20 @@ class SearchController < ApplicationController
     artist_name = params[:artist_name]
     artist = lastfm.artist
     @resp = artist.get_info(artist: artist_name)
+
+    visited_artist = VisitedArtist.find_by_name(artist_name)
+    if visited_artist.nil?
+      visited_artist = VisitedArtist.create(name: artist_name, image_url: @resp['image'][1]['content'])
+      history = History.create(visited_artist_id: visited_artist.id, user_id: current_user.id, count: 1)
+    else
+      history = History.where(visited_artist_id: visited_artist.id, user_id: current_user.id).first
+      if history.nil?
+        history = History.create(visited_artist_id: visited_artist.id, user_id: current_user.id, count: 1)
+      else
+        count = history.count
+        history.update_attributes(count: count + 1)
+      end
+    end
 
     tracks_info = artist.get_top_tracks(artist: artist_name, limit: 10)
     if tracks_info.is_a? Hash

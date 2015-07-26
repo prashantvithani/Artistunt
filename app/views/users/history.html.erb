@@ -1,0 +1,24 @@
+<!-- BEGIN MEDIA OBJECT -->
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-3">
+    <h1 class="page-heading"><%= current_user.username %></h1>
+    <h4 class="small-title">History</h4>
+    <ul class="media-list media-sm">
+      <% @history.each do |history| %>
+        <% artist = history.visited_artist %>
+        <div class="the-box no-border">
+          <li class="media">
+            <a class="pull-left" href="element-list-media.html#fakelink">
+              <img class="media-object img-rounded" src="<%= artist.image_url %>" alt="Avatar">
+            </a>
+            <div class="media-body">
+              <h4 class="media-heading"><%= link_to artist.name, show_artist_path(artist.name) %></h4>
+              <p> Total Views: <%= history.count %> </p>
+            </div>
+          </li>
+        </div>
+      <% end %>
+    </ul>
+    <%= will_paginate @history %>
+  </div><!-- /.col-sm-6 -->
+</div>

@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get 'similar_artist/:artist_name', to: 'search#get_similar', as: :get_similar, constraints: { artist_name: /.*/ }
 
   devise_for :users
+  get 'users/:username/history', to: 'users#history', as: :user_history
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
