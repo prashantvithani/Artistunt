@@ -11,7 +11,17 @@
 
 .login.toolkits {
   @media screen and (min-width: 768px) {
-    min-height: 631px;
+    min-height: 550px;
+  }
+}
+
+footer {
+  margin-top: 0px !important;
+}
+
+.container-fluid {
+  @media screen and (min-width: 768px) {
+    min-height: 500px;
   }
 }
 
