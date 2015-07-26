@@ -13,6 +13,7 @@ class SearchController < ApplicationController
 
   def list_artists
     $artist = lastfm.artist
+    @artist_name = params[:artist_query]
     resp = $artist.search(artist: params[:artist_query], limit: 10)
     if resp['status'] == 'ok'
       $more_artists = resp['results']['totalResults'].to_i - 10
@@ -102,6 +103,7 @@ class SearchController < ApplicationController
   end
 
   def fetch_artists
+    @artist_name = params[:artist_query]
     resp = $artist.search(artist: params[:artist_query], limit: 10, page: $page_count)
     if resp['status'] == 'ok'
       @artist_matched = resp['results']['artistmatches']['artist']

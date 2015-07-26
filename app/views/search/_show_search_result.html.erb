@@ -1,12 +1,30 @@
-<% @artist_matched.each do |artist| %>
-  <%= link_to artist['name'], show_artist_path(artist['name']) %><br>
-<% end %>
-<br>
-<div class="">
-  <% if $previous_artists > 0 %>
-    (<%= $previous_artists %>)<%= link_to "Get Previous Page", get_previous_page_path(previous: $previous_artists), remote: true %> |
-  <% end %>
-  <% if $more_artists > 0 %>
-    <%= link_to "Get Next Page", get_next_page_path(remaining: $more_artists), remote: true %>(<%= $more_artists %>)
-  <% end %>
+<!-- BEGIN MEDIA OBJECT -->
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-3">
+    <h1 class="page-heading"><%= @artist_name %></h1>
+    <h4 class="small-title">Search Results</h4>
+    <ul class="media-list media-sm">
+      <% @artist_matched.each do |artist| %>
+        <div class="the-box no-border">
+          <li class="media">
+            <a class="pull-left" href="element-list-media.html#fakelink">
+              <img class="media-object img-rounded" src="<%= artist['image'][1]['content'] %>" alt="Avatar">
+            </a>
+            <div class="media-body">
+              <h4 class="media-heading"><%= link_to artist['name'], show_artist_path(artist['name']) %></h4>
+            </div>
+          </li>
+        </div>
+      <% end %>
+    </ul>
+    <div class="">
+      <% if $previous_artists > 0 %>
+        (<%= $previous_artists %>)<%= link_to "Get Previous Page", get_previous_page_path(previous: $previous_artists), remote: true %> |
+      <% end %>
+      <% if $more_artists > 0 %>
+        <%= link_to "Get Next Page", get_next_page_path(remaining: $more_artists), remote: true %>(<%= $more_artists %>)
+      <% end %>
+    </div>
+  </div><!-- /.col-sm-6 -->
 </div>
+<br>
