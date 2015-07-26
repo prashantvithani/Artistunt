@@ -1,4 +1,11 @@
-<h1 class="page-heading"><%= @resp['name'] %><small> (<%= link_to "Get Similar Artist", get_similar_path(@resp['name']) %>)</small></h1>
+<div class="row">
+  <div class="col-lg-6">
+    <h1 class="page-heading"><%= @resp['name'] %></h1>
+  </div>
+  <div class="col-lg-6 similar" align="right">
+    <%= link_to "Get Similar Artist", get_similar_path(@resp['name']), class: "btn btn-primary btn-lg" %>
+  </div>
+</div>
 <div class="row">
   <div class="col-lg-6">
     <div class="panel panel-danger panel-square panel-no-border text-center">
@@ -27,53 +34,55 @@
 </div>
 <div class="row">
   <div class="col-lg-12">
-    <div class="the-box bg-default no-border">
-    <h3 class="small-title"><strong>Artist Bio</strong></h3>
-      <hr />
-      <% unless @resp['bio']['formationlist'].blank? || @resp['bio']['placeformed'].blank? %>
-        <p>
-          <strong><%= @resp['bio']['placeformed'] %> (<%= @resp['bio']['formationlist']['formation']['yearfrom'] %> - <% if @resp['bio']['formationlist']['formation']['yearto'].blank? %>
-            present
-          <% else %>
-            <%= @resp['bio']['formationlist']['formation']['yearto'] %>
-          <% end %>) </strong>
-        </p>
-      <% end %>
+    <% unless @resp['bio']['summary'].blank? && @resp['tags'].blank? && @resp['bandmembers'].blank? %>
+      <div class="the-box bg-default no-border">
       <% unless @resp['bio']['summary'].blank? %>
-        <p>
-          <%= @resp['bio']['summary'].html_safe %>
-        </p>
-        <hr />
-      <% end %>
-      <% unless @resp['bandmembers'].blank? %>
-        <h4 class="small-title"><strong>Band Members</strong></h4>
-        <div class="the-box full no-border">
-          <div class="table-responsive">
-            <table class="table table-th-block table-primary">
-              <thead>
-                <tr><th>Name</th><th>From</th><th>To</th></tr>
-              </thead>
-              <tbody>
-                <% @resp['bandmembers']['member'].each do |member| %>
-                  <tr><td><%= member['name'] %></td><td><%= member['yearfrom'] %></td><td><% if member['yearto'].blank? %>
-                    present
-                    <% else %>
-                    <%= member['yearto'] %>
-                  <% end %></td></tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div><!-- /.table-responsive -->
-        </div><!-- /.the-box -->
-        <hr />
-      <% end %>
-      <% unless @resp['tags'].blank? %>
-        <strong>Tags</strong><br><br>
-        <% @resp['tags']['tag'].each do |tag| %>
-          <%= link_to tag['name'], tag['url'], class: "btn btn-info" %>
+        <h3 class="small-title"><strong>Artist Bio</strong></h3>
+          <hr />
+          <% unless @resp['bio']['formationlist'].blank? || @resp['bio']['placeformed'].blank? %>
+            <p>
+              <strong><%= @resp['bio']['placeformed'] %> (<%= @resp['bio']['formationlist']['formation']['yearfrom'] %> - <% if @resp['bio']['formationlist']['formation']['yearto'].blank? %>
+                present
+              <% else %>
+                <%= @resp['bio']['formationlist']['formation']['yearto'] %>
+              <% end %>) </strong>
+            </p>
+          <% end %>
+          <p>
+            <%= @resp['bio']['summary'].html_safe %>
+          </p>
+          <hr />
         <% end %>
-      <% end %>
-    </div><!-- /.the-box .bg-primary .no-border-->
+        <% unless @resp['bandmembers'].blank? %>
+          <h4 class="small-title"><strong>Band Members</strong></h4>
+          <div class="the-box full no-border">
+            <div class="table-responsive">
+              <table class="table table-th-block table-primary">
+                <thead>
+                  <tr><th>Name</th><th>From</th><th>To</th></tr>
+                </thead>
+                <tbody>
+                  <% @resp['bandmembers']['member'].each do |member| %>
+                    <tr><td><%= member['name'] %></td><td><%= member['yearfrom'] %></td><td><% if member['yearto'].blank? %>
+                      present
+                      <% else %>
+                      <%= member['yearto'] %>
+                    <% end %></td></tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div><!-- /.table-responsive -->
+          </div><!-- /.the-box -->
+          <hr />
+        <% end %>
+        <% unless @resp['tags'].blank? %>
+          <strong>Tags</strong><br><br>
+          <% @resp['tags']['tag'].each do |tag| %>
+            <%= link_to tag['name'], tag['url'], class: "btn btn-info" %>
+          <% end %>
+        <% end %>
+      </div><!-- /.the-box .bg-primary .no-border-->
+    <% end %>
   </div><!-- /.col-sm-6 -->
 </div>
 
